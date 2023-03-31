@@ -89,3 +89,15 @@ def update_user(id):
     #profile.update()
 
     return jsonify({"status": 200, "message": "User created successfully", "user": user.serialize()}), 201
+
+@bpUser.route('/users/<int:id>', methods=['DELETE'])
+def delete_user(id):
+
+    user = User.query.get(id)
+
+    if not user:
+        return jsonify({"status": 404, "message": "User not found"}), 404
+
+    user.delete()
+    
+    return jsonify({"status": 200, "message": "User deleted successfully", "user": {}}), 200
